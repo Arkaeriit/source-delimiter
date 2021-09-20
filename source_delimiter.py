@@ -8,6 +8,14 @@ comment_delimiters = {
         "python": ["# ", " #"],
 }
 
+def list_available_languages():
+    ret = ""
+    arg_lst = list(comment_delimiters.keys())
+    for i in range(len(arg_lst)-1):
+        ret += arg_lst[i] + ", "
+    ret += "and " + arg_lst[len(arg_lst)-1] + "."
+    return ret
+
 def center_txt_in_line(txt, size):
     ret = ""
     used_txt = " " + txt + " "
@@ -36,10 +44,10 @@ def make_comment(txt, size, language):
     return add_comment_delimiters(txt_line, language)
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-l", "--language", type=str, help="The name of the programing language the comment will be made in.", required=True)
+    parser = argparse.ArgumentParser(description="Source Delimiter is a tool to generate pretty comment meant to be used as delimiters in source file.")
+    parser.add_argument("-l", "--language", type=str, help="The name of the programming language the comment will be made in. The supported languages are "+list_available_languages(), required=True)
     parser.add_argument("-c", "--comment", type=str, help="The comment you want to produce.", required=True)
-    parser.add_argument("-s", "--size", type=int, help="The total length of the outputed result.", required=False, default=80)
+    parser.add_argument("-s", "--size", type=int, help="The total length of the output result.", required=False, default=80)
     args = parser.parse_args()
     print(make_comment(args.comment, args.size, args.language))
 
