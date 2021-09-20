@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import argparse
+
 comment_delimiters = {
         "c": ["/* ", " */"],
         "lua": ["", ""],
@@ -33,7 +35,14 @@ def make_comment(txt, size, language):
     txt_line = center_txt_in_line(txt, size_used)
     return add_comment_delimiters(txt_line, language)
 
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--language", type=str, help="The name of the programing language the comment will be made in.", required=True)
+    parser.add_argument("-c", "--comment", type=str, help="The comment you want to produce.", required=True)
+    parser.add_argument("-s", "--size", type=int, help="The total length of the outputed result.", required=False, default=80)
+    args = parser.parse_args()
+    print(make_comment(args.comment, args.size, args.language))
 
-print(center_txt_in_line("Coucou", 80))
-print(make_comment("Coucou", 80, "C"))
+if __name__ == "__main__":
+    main()
 
