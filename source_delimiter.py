@@ -2,18 +2,36 @@
 
 import argparse
 
+# For some programming languages, present the start and stop
+# comment delimiters
 comment_delimiters = {
-        "c"     : {"start": "/* ", "stop": " */", "name": "C"},
-        "lua"   : {"start": ""   , "stop": ""   , "name": "Lua"},
-        "python": {"start": "# " , "stop": " #" , "name": "Python"},
+        "c"        : {"start": "/* ", "stop": " */"},
+        "lua"      : {"start": ""   , "stop": ""   },
+        "python"   : {"start": "# " , "stop": " #" },
+        "apl"      : {"start": "⍝ " , "stop": " ⍝" },
+        "fortranIV": {"start": "C"  , "stop": "Ͻ"  }, 
 }
+
+# For all supported languages, corelate their name
+# to a language in the comment_delimitersdictionary
+all_languages = {
+        "c"     : ["C", "C++", "C#", "Java", "Javascript", "Verilog", "Go", ],
+        "lua"   : ["Lua", "VHDL", "Ada", "AppleScript"],
+        "python": ["Python", "Shell", ],
+        "apl"   : ["APL", ],
+
+}
+
 
 def list_available_languages():
     ret = ""
-    language_lst = list(comment_delimiters.values())
+    language_lst = list(all_languages.values())
     for i in range(len(language_lst)-1):
-        ret += language_lst[i]["name"] + ", "
-    ret += "and " + language_lst[-1]["name"] + "."
+        for lang in language_lst[i]:
+            ret += lang + ", "
+    for i in range(len(language_lst[-1])-1):
+        ret += language_lst[-1][j] + ", "
+    ret += "and " + language_lst[-1][-1] + "."
     return ret
 
 def center_txt_in_line(txt, size):
@@ -28,14 +46,20 @@ def center_txt_in_line(txt, size):
         ret += "-"
     return ret
 
+def get_delimiter(language):
+    lang_types = list(all_languages.keys())
+    for t in lang_types:
+        for lang in all_languages[t]:
+            if lang.lower() == language.lower():
+                return comment_delimiters[t]
+    # error here
+
 def add_comment_delimiters(txt, language):
-    key = language.lower()
-    delimiters = comment_delimiters[key]
+    delimiters = get_delimiter(language)
     return delimiters["start"] + txt + delimiters["stop"]
 
 def get_usable_size(size, language):
-    key = language.lower()
-    delimiters = comment_delimiters[key]
+    delimiters = get_delimiter(language)
     return size - len(delimiters["start"]) - len(delimiters["stop"])
 
 def make_comment(txt, size, language):
