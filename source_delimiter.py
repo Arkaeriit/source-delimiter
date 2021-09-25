@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import sys
 
 # For some programming languages, present the start and stop
 # comment delimiters
@@ -64,7 +65,9 @@ def get_delimiter(language):
         for lang in all_languages[t]:
             if lang.lower() == language.lower():
                 return comment_delimiters[t]
-    # error here
+    print("Error, '"+language+"' is not a supported language.\n"
+            "The supported languages are "+list_available_languages()+".", file = sys.stderr)
+    sys.exit(1)
 
 def add_comment_delimiters(txt, language):
     delimiters = get_delimiter(language)
