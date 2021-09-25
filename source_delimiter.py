@@ -3,17 +3,17 @@
 import argparse
 
 comment_delimiters = {
-        "c": ["/* ", " */"],
-        "lua": ["", ""],
-        "python": ["# ", " #"],
+        "c"     : {"start": "/* ", "stop": " */", "name": "C"},
+        "lua"   : {"start": ""   , "stop": ""   , "name": "Lua"},
+        "python": {"start": "# " , "stop": " #" , "name": "Python"},
 }
 
 def list_available_languages():
     ret = ""
-    arg_lst = list(comment_delimiters.keys())
-    for i in range(len(arg_lst)-1):
-        ret += arg_lst[i] + ", "
-    ret += "and " + arg_lst[len(arg_lst)-1] + "."
+    language_lst = list(comment_delimiters.values())
+    for i in range(len(language_lst)-1):
+        ret += language_lst[i]["name"] + ", "
+    ret += "and " + language_lst[-1]["name"] + "."
     return ret
 
 def center_txt_in_line(txt, size):
@@ -31,12 +31,12 @@ def center_txt_in_line(txt, size):
 def add_comment_delimiters(txt, language):
     key = language.lower()
     delimiters = comment_delimiters[key]
-    return delimiters[0] + txt + delimiters[1]
+    return delimiters["start"] + txt + delimiters["stop"]
 
 def get_usable_size(size, language):
     key = language.lower()
     delimiters = comment_delimiters[key]
-    return size - len(delimiters[0]) - len(delimiters[1])
+    return size - len(delimiters["start"]) - len(delimiters["stop"])
 
 def make_comment(txt, size, language):
     size_used = get_usable_size(size, language)
