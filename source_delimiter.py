@@ -5,21 +5,33 @@ import argparse
 # For some programming languages, present the start and stop
 # comment delimiters
 comment_delimiters = {
-        "c"        : {"start": "/* ", "stop": " */"},
-        "lua"      : {"start": ""   , "stop": ""   },
-        "python"   : {"start": "# " , "stop": " #" },
-        "apl"      : {"start": "⍝ " , "stop": " ⍝" },
-        "fortranIV": {"start": "C"  , "stop": "Ͻ"  }, 
+        "c"        : {"start": "/* " , "stop": " */"},
+        "lua"      : {"start": "--"  , "stop": ""   },
+        "python"   : {"start": "# "  , "stop": " #" },
+        "apl"      : {"start": "⍝ "  , "stop": " ⍝" },
+        "fortranIV": {"start": "C"   , "stop": "Ͻ"  }, 
+        "fortran90": {"start": "!-"  , "stop": "-!" }, 
+        "latex"    : {"start": "% "  , "stop": " %" }, 
+        "forth"    : {"start": "( "  , "stop": " )" }, 
+        "ocaml"    : {"start": "(* " , "stop": " *)"}, 
+        "html"     : {"start": "<!--", "stop": "-->"},
+        "assembly" : {"start": ";"   , "stop": ";"  },
 }
 
 # For all supported languages, corelate their name
 # to a language in the comment_delimitersdictionary
 all_languages = {
-        "c"     : ["C", "C++", "C#", "Java", "Javascript", "Verilog", "Go", ],
-        "lua"   : ["Lua", "VHDL", "Ada", "AppleScript"],
-        "python": ["Python", "Shell", ],
-        "apl"   : ["APL", ],
-
+        "c"        : ["C", "C++", "C#", "Java", "Javascript", "Verilog", "Go", "PHP", "Swift", "Rust"],
+        "lua"      : ["Lua", "VHDL", "Ada", "AppleScript", "Haskell", "SQL", ],
+        "python"   : ["Python", "Shell", "Nim", "Perl", "R", "Ruby", ],
+        "apl"      : ["APL", ],
+        "fortranIV": ["FortranIV", ],
+        "fortran90": ["Fortran90", ],
+        "latex"    : ["LaTeX", "Matlab"],
+        "forth"    : ["FORTH", ],
+        "ocaml"    : ["OCaml", "Pascal", ],
+        "html"     : ["HTML", "XML", ],
+        "assembly" : ["Assembly", "Lisp", ],
 }
 
 
@@ -30,7 +42,7 @@ def list_available_languages():
         for lang in language_lst[i]:
             ret += lang + ", "
     for i in range(len(language_lst[-1])-1):
-        ret += language_lst[-1][j] + ", "
+        ret += language_lst[-1][i] + ", "
     ret += "and " + language_lst[-1][-1] + "."
     return ret
 
