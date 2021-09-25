@@ -17,8 +17,12 @@ optional arguments:
   -h, --help            show this help message and exit
   -l LANGUAGE, --language LANGUAGE
                         The name of the programming language the comment will
-                        be made in. The supported languages are c, lua, and
-                        python.
+                        be made in. The supported languages are C, C++, C#,
+                        Java, Javascript, Verilog, Go, PHP, Swift, Rust, Lua,
+                        VHDL, Ada, AppleScript, Haskell, SQL, Python, Shell,
+                        Nim, Perl, R, Ruby, APL, FortranIV, Fortran90, LaTeX,
+                        Matlab, FORTH, OCaml, Pascal, HTML, XML, Assembly, and
+                        Lisp.
   -c COMMENT, --comment COMMENT
                         The comment you want to produce.
   -s SIZE, --size SIZE  The total length of the output result.
